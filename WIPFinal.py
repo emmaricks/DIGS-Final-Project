@@ -10,13 +10,13 @@ from threading import Thread
 
 st.set_page_config(layout="wide")
 st.markdown('<style>div.block-container{padding-top:1rem;}</style>', unsafe_allow_html=True)
-dataset = pd.read_csv('/Users/emmaricks/Desktop/DataScience/DIGS20004/Projects/Final/Data/Cleaned_Datasets/Miscarriages_Abortions_Centers.csv')#GapMinderBasedVizV2.csv')
-long_df = pd.read_csv('/Users/emmaricks/Desktop/DataScience/DIGS20004/Projects/Final/Data/Cleaned_Datasets/GestationalAgeByState.csv')#
-tot_abort = pd.read_csv('/Users/emmaricks/Desktop/DataScience/DIGS20004/Projects/Final/Data/Cleaned_Datasets/TotalRateAbortions.csv') #TotalAbortionsV2.csv')#
-AbortionCostOverTime = pd.read_csv('/Users/emmaricks/Desktop/DataScience/DIGS20004/Projects/Final/Data/Cleaned_Datasets/AbortionCostOverTime.csv')#
-WomenPerClinic = pd.read_csv('/Users/emmaricks/Desktop/DataScience/DIGS20004/Projects/Final/Data/Cleaned_Datasets/WomenPerClinicOverTime.csv')#
-legality = pd.read_csv('/Users/emmaricks/Desktop/DataScience/DIGS20004/Projects/Final/Data/Cleaned_Datasets/legality.csv')#
-preg_abort_rates = pd.read_csv('/Users/emmaricks/Desktop/DataScience/DIGS20004/Projects/Final/Data/Cleaned_Datasets/Pregnancy_Abortion_Rate_Age_State.csv')
+dataset = pd.read_csv('Data/Cleaned_Datasets/Miscarriages_Abortions_Centers.csv')#GapMinderBasedVizV2.csv')
+long_df = pd.read_csv('Data/Cleaned_Datasets/GestationalAgeByState.csv')#
+tot_abort = pd.read_csv('Data/Cleaned_Datasets/TotalRateAbortions.csv') #TotalAbortionsV2.csv')#
+AbortionCostOverTime = pd.read_csv('Data/Cleaned_Datasets/AbortionCostOverTime.csv')#
+WomenPerClinic = pd.read_csv('Data/Cleaned_Datasets/WomenPerClinicOverTime.csv')#
+legality = pd.read_csv('Data/Cleaned_Datasets/legality.csv')#
+preg_abort_rates = pd.read_csv('Data/Cleaned_Datasets/Pregnancy_Abortion_Rate_Age_State.csv')
 
 
 
