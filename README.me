@@ -1,0 +1,41 @@
+# United States Abortion Data Dashboard
+
+This project involves cleaning and visualizing data using Python. It includes a Streamlit dashboard with Plotly and Dash visualizations.
+
+## Project Structure
+
+├── data/ │ ├── cleaned_datasets/ # Cleaned data will be saved here  ├── Final.py # Streamlit dashboard with Plotly and Dash visualizations ├── Cleaning_data.ipynb # Jupyter notebook for cleaning raw data └── README.md # Project documentation
+
+
+## Setup
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/emmaricks/DIGS-Final-Project
+   
+Install dependencies:
+
+pip install -r requirements.txt
+
+Or manually:
+
+pip install pandas plotly dash streamlit jupyter
+
+Usage
+1. Clean Data
+Open and run Cleaning_data.ipynb to clean the raw data and save it to data/cleaned_datasets.
+
+2. Run Dashboard
+Run the Streamlit dashboard with:
+
+streamlit run Final.py
+
+This will open a web app with interactive visualizations of the cleaned data.
+
+
+Data Sources: 
+- CDC: https://www.cdc.gov/mmwr/volumes/73/ss/ss7307a1.htm?s_cid=ss7307a1_w
+- Guttmacher Institute: https://osf.io/duj6a
+- The New York Times: https://www.nytimes.com/interactive/2024/us/abortion-laws-roe-v-wade.html
+- The University of California SF Advancing New Standards in Reproductive Health: https://www.ansirh.org/sites/default/files/2024-08/AFD%20Trends%20in%20Abortion%20Services%20in%20the%20United%20States%202017-2023_Final%20UPDATED.pdf
