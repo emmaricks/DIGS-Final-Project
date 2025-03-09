@@ -1,3 +1,4 @@
+#Imports:
 import streamlit as st
 import pandas as pd
 import datetime
@@ -10,6 +11,8 @@ from threading import Thread
 
 st.set_page_config(layout="wide")
 st.markdown('<style>div.block-container{padding-top:1rem;}</style>', unsafe_allow_html=True)
+
+#Reading in Data:
 dataset = pd.read_csv('Data/Cleaned_Datasets/Miscarriages_Abortions_Centers.csv')
 long_df = pd.read_csv('Data/Cleaned_Datasets/GestationalAgeByState.csv')
 tot_abort = pd.read_csv('Data/Cleaned_Datasets/TotalRateAbortions.csv') 
@@ -493,6 +496,7 @@ def start_dash_apps():
 
 ###########################
 
+#Adding in a Header:
 col1, col2 = st.columns([0.1,0.9])
 with col1:
     box_date = str(datetime.datetime.now().strftime("%d %B %Y"))
@@ -515,7 +519,7 @@ with col2:
 st.divider()   
 _, col3 = st.columns([0.1,1])
 
-
+#Plotly chloropleth of abortion legality
 with col3:
     st.subheader("Legality of Abortion")
     status_color_map = {
@@ -551,12 +555,15 @@ with col3:
     )
 
 st.divider()
+
+#Dash gestational age and total abortion plots
 col4, col5 = st.columns([0.55,0.45])
+#Gestational Age
 with col4:
     start_dash_apps()
     st.markdown(""" <iframe src="http://127.0.0.1:8096" width="700" height="600"></iframe>
 """, unsafe_allow_html=True)
-
+#Total Abortions
 with col5:
     st.markdown(""" <iframe src="http://127.0.0.1:8097" width="600" height="600"></iframe>
 """, unsafe_allow_html=True)
@@ -564,7 +571,7 @@ st.divider()
 st.write("Looking at the left chart, breaking down the total number of abortions performed in 2022 by gestational age by state, we see that on average, about 35 percent of abortions in Democrat states are performed at 6 or less weeks. In Republican states, about 33 percent of abortions in Democrat states are performed at 6 or less weeks. The majority of abortions are preformed at 7 to 9 weeks across both groups of states. In the total abortions graph on the right, we see the change in the number of abortions in the US as well as by state from 2005-2020. Overall, there has been a decrease in abortions since 2005, with a bit of an uptick since 2017.")
 st.divider()
 
-
+#Gapminder inspired visualization of total miscarriages vs abortions
 _, col6 = st.columns([0.1,1])
 with col6:
     st.subheader("Comparing Total Abortions, Miscarriages, and Women's Healthcare Facilities by State")
@@ -713,6 +720,7 @@ with col6:
         """,
         unsafe_allow_html=True
     )
+#Download button for the data:
 _, view3, dwn3 = st.columns([0.5,0.45,0.45])
 with view3:
     expander = st.expander("View Abortion and Miscarriage Data By State")
@@ -725,6 +733,7 @@ st.divider()
 st.write("As the total number of abortions in a state increases, the total number of miscarriages also increases. As a note, an abortion is not considered a miscarriage. Democrat states seem to have more health facilities for women (offering abortions) than Republican ones.")
 st.divider()
 
+#Dash line graphs of abortion:birth ratio and Pregnancy rate for 15-17 year olds
 col7, col8 = st.columns([0.5,0.5])
 with col7:
     start_dash_apps()
@@ -741,10 +750,8 @@ with col8:
     st.write("The graph above, demonstrating the number of pregnancies per 1000 women aged 15-17 has been generally decreasing since 2005. This decrease is seen among Republican, Democrat, restricted, and legalized abortion states. Even from 2005 to 2015 when the number of abortions compared to births was decreasing, we saw a decrease in pregnant 15-17 year olds. This signifies even though there were less abortions per this rate, there were also less pregnancies. As such, this decrease in abortion:birth ratio seen overall in the US may not entirely be due to less pregnant teens getting abortions, but also less teens getting pregnant.")
     st.divider()
 
-
+#Plotly chloropleth of medication abortion service cost by state
 _, col9 = st.columns([0.1,1])
-
-
 with col9:
     st.subheader("Cost of Medication Abortion Services By State")
     
@@ -773,7 +780,7 @@ with col9:
         """,
         unsafe_allow_html=True
     )
-
+#Download button for the data:
 _, view4, dwn4 = st.columns([0.5,0.45,0.45])
 with view4:
     expander = st.expander("View data for Abortion Cost over Time")
@@ -785,6 +792,8 @@ st.divider()
 st.write("Between 2020 and 2023, before and after the fall of Roe v. Wade, we see some changes in medication abortion service cost by state. In swing states such as NC and PA, abortion gets more expensive after the fall. In Montanna and Wyomming, where abortion bans are blocked, we see abortion by medication get cheaper after the fall of Roe v. Wade.")
 st.divider()
 _, col10 = st.columns([0.1,1])
+
+#Plotly chloropleth of women per abortion facility by state
 with col10:
     st.subheader("Women Per Abortion Facility By State")
     women_per_fac = px.choropleth(
@@ -824,6 +833,7 @@ with col10:
     """,
     unsafe_allow_html=True
 )
+#Download button for the data:
 _, view5, dwn5 = st.columns([0.5,0.45,0.45])
 with view5:
     expander = st.expander("View data for Women Served Per Abortion Facility over Time")
@@ -831,6 +841,8 @@ with view5:
 with dwn5:
     st.download_button("Get Data", data = WomenPerClinic.to_csv().encode("utf-8"),
                                         file_name="WomenPerFacilityByState.csv", mime="text.csv")
+    
+#Text for the write-up
 st.divider()   
 st.write("Of note, the visualization above shows log values of women per abortion facility. This is because in 2023, Texas is a strong outlier with over 7 million women per abortion facility. As such, a log scale was necessary to demonstate changes among other states through a color scale.")
 st.write("After the fall of Roe v. Wade, we see that number of women per facility increases in many Republican states, most notably Texas. This means that it is more difficult for women to get care. More women per abortion facility often signifies less facilities. As such, patients may have to travel further to appointments and must schedule appointments further in advance. Leading up to the fall of Roe v. Wade, AL was showing improvement in access, as the number of women per facility dropped from 2020-2021. Once abortion was no longer protected nationally, the number of women per facility in AL increased ~5x in 2023. In Idaho, the number of women served per facility had been holding steady until a ~2x increase after Roe fell.")
