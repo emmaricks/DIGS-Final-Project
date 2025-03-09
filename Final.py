@@ -10,12 +10,12 @@ from threading import Thread
 
 st.set_page_config(layout="wide")
 st.markdown('<style>div.block-container{padding-top:1rem;}</style>', unsafe_allow_html=True)
-dataset = pd.read_csv('Data/Cleaned_Datasets/Miscarriages_Abortions_Centers.csv')#GapMinderBasedVizV2.csv')
-long_df = pd.read_csv('Data/Cleaned_Datasets/GestationalAgeByState.csv')#
-tot_abort = pd.read_csv('Data/Cleaned_Datasets/TotalRateAbortions.csv') #TotalAbortionsV2.csv')#
-AbortionCostOverTime = pd.read_csv('Data/Cleaned_Datasets/AbortionCostOverTime.csv')#
-WomenPerClinic = pd.read_csv('Data/Cleaned_Datasets/WomenPerClinicOverTime.csv')#
-legality = pd.read_csv('Data/Cleaned_Datasets/legality.csv')#
+dataset = pd.read_csv('Data/Cleaned_Datasets/Miscarriages_Abortions_Centers.csv')
+long_df = pd.read_csv('Data/Cleaned_Datasets/GestationalAgeByState.csv')
+tot_abort = pd.read_csv('Data/Cleaned_Datasets/TotalRateAbortions.csv') 
+AbortionCostOverTime = pd.read_csv('Data/Cleaned_Datasets/AbortionCostOverTime.csv')
+WomenPerClinic = pd.read_csv('Data/Cleaned_Datasets/WomenPerClinicOverTime.csv')
+legality = pd.read_csv('Data/Cleaned_Datasets/legality.csv')
 preg_abort_rates = pd.read_csv('Data/Cleaned_Datasets/Pregnancy_Abortion_Rate_Age_State.csv')
 
 
@@ -148,7 +148,7 @@ def create_dash_app():
 
     # Define the layout
     app_.layout = html.Div(style={'backgroundColor': 'white', 'padding': '5px'}, children=[
-        html.H1("Percentage of Abortions by Gestational Stage (2022)", style={'fontSize': '30px'}),
+        html.H1("Percentage of Abortions by Gestational Stage (2022)",  style={'fontSize': '25px',  'fontFamily':"Source Sans Pro, sans-serif"}),
         dcc.Dropdown(
             id='state-dropdown',
             options=dropdown_options,
@@ -220,7 +220,7 @@ def create_dash_app():
         fig_gest.update_layout(margin=dict(l=40, r=20, t=40, b=60),
                                yaxis=dict(
             title="Percentage",  
-        )
+        ), title_font=dict(family="Source Sans Pro, sans-serif")
     )
         
         return fig_gest
@@ -246,7 +246,7 @@ def create_abortion_over_time_app():
    
     tot_rate = dash.Dash(__name__)
     tot_rate.layout = html.Div(style={'backgroundColor': 'white', 'padding': '5px'}, children=[
-        html.H1("Abortion Rate by State and Year", style={'fontSize': '30px'}),
+        html.H1("Abortion Rate by State and Year",  style={'fontSize': '25px',  'fontFamily':"Source Sans Pro, sans-serif"}),
         dcc.Dropdown(
             id='state-dropdown',
             options=dropdown_options,
@@ -298,7 +298,7 @@ def create_abortion_over_time_app():
                     labels={'AbortionTotal': 'Abortion Rate', 'Year': 'Year'},
                     color_discrete_map=state_colors ,
                     markers=True) 
-        fig.update_layout(margin=dict(l=70, r=20, t=40, b=60))
+        fig.update_layout(margin=dict(l=70, r=20, t=40, b=60), title_font=dict(family="Source Sans Pro, sans-serif"))
 
         return fig
     return tot_rate
@@ -316,7 +316,6 @@ preg_rate_15_17 = rate_15_17[rate_15_17["rate_type"]=="rate_pregnancies"]
     
 def create_1517abortion_over_time_app():
     # Create the Dash app
-    #dropdown_options = [{'label': 'US', 'value': 'US'}] + [{'label': state, 'value': state} for state in tot_abort['state'] if state != 'US']
     dropdown_options = [
         {'label': 'Republican States', 'value': 'Republican'},
         {'label': 'Democrat States', 'value': 'Democrat'},
@@ -326,7 +325,7 @@ def create_1517abortion_over_time_app():
     ] + [{'label': 'US', 'value': 'US'}] + [{'label': state, 'value': state} for state in abort_rate_15_17['State'].unique() if state != 'US'] #[{'label': state, 'value': state} for state in tot_abort['State'].unique()]
     abor_rate1517 = dash.Dash(__name__)
     abor_rate1517.layout = html.Div(style={'backgroundColor': 'white', 'padding': '5px'}, children=[
-        html.H1("Abortions per 1000 Births for 15-17 Year Olds", style={'fontSize': '30px'}),
+        html.H1("Abortions per 1000 Births for 15-17 Year Olds", style={'fontSize': '25px',  'fontFamily':"Source Sans Pro, sans-serif"}),
         dcc.Dropdown(
             id='state-dropdown',
             options=dropdown_options,
@@ -378,7 +377,8 @@ def create_1517abortion_over_time_app():
                     labels={'rate': 'Abortion per 1000 Births', 'year': 'Year'},
                     color_discrete_map=state_colors ,
                     markers=True) 
-        fig.update_layout(margin=dict(l=70, r=20, t=40, b=60))
+        fig.update_layout(margin=dict(l=70, r=20, t=40, b=60), title_font=dict(family="Source Sans Pro, sans-serif"),  # Title font
+    font=dict(family="Source Sans Pro, sans-serif"))
 
         return fig
     return abor_rate1517
@@ -392,7 +392,6 @@ def start_abortrate1517_in_thread():
 
 def create_1517preg_over_time_app():
     # Create the Dash app
-    #dropdown_options = [{'label': 'US', 'value': 'US'}] + [{'label': state, 'value': state} for state in tot_abort['state'] if state != 'US']
     dropdown_options = [
         {'label': 'Republican States', 'value': 'Republican'},
         {'label': 'Democrat States', 'value': 'Democrat'},
@@ -402,7 +401,7 @@ def create_1517preg_over_time_app():
     ] + [{'label': 'US', 'value': 'US'}] + [{'label': state, 'value': state} for state in abort_rate_15_17['State'].unique() if state != 'US'] #[{'label': state, 'value': state} for state in tot_abort['State'].unique()]
     preg_rate1517 = dash.Dash(__name__)
     preg_rate1517.layout = html.Div(style={'backgroundColor': 'white', 'padding': '5px'}, children=[
-        html.H1("Pregnancies per 1000 15-17 year olds", style={'fontSize': '30px'}),
+        html.H1("Pregnancies per 1000 15-17 year olds",  style={'fontSize': '25px',  'fontFamily':"Source Sans Pro, sans-serif"}),
         dcc.Dropdown(
             id='state-dropdown',
             options=dropdown_options,
@@ -454,7 +453,7 @@ def create_1517preg_over_time_app():
                     labels={'rate': 'Pregnancy Rate', 'year': 'Year'},
                     color_discrete_map=state_colors ,
                     markers=True) 
-        fig.update_layout(margin=dict(l=70, r=20, t=40, b=60))
+        fig.update_layout(margin=dict(l=70, r=20, t=40, b=60), title_font=dict(family="Source Sans Pro, sans-serif"))
 
         return fig
     return preg_rate1517
@@ -496,7 +495,6 @@ def start_dash_apps():
 
 col1, col2 = st.columns([0.1,0.9])
 with col1:
-    #st.image(image,width=100)
     box_date = str(datetime.datetime.now().strftime("%d %B %Y"))
     st.write("  \n")
     st.write("  \n")
@@ -510,10 +508,10 @@ html_title = """
     border-radius:6px;
     }
     </style>
-    <center><h1 class="title-test"> 🇺🇸 United States Abortion Data Dashboard</h1></center>"""
+    <left><h1 class="title-test"> 🇺🇸 United States Abortion Data Dashboard</h1></left>"""
 with col2:
     st.markdown(html_title, unsafe_allow_html=True)
-    st.write("This dashboard shows information on abortion data by state, gestational stage, total abortions, and cost.")
+    st.write("This dashboard shows information on abortion data by state over time.")
 st.divider()   
 _, col3 = st.columns([0.1,1])
 
@@ -724,12 +722,11 @@ with dwn3:
                        file_name = "Abortion_Data_Per_State.csv", mime="text/csv")
     
 st.divider()
-st.write("As the total number of abortions in a state increaes, the total number of miscarriages also increases. Democrat states seem to have more health facilities for women (offering abortions) than Republican ones.")
+st.write("As the total number of abortions in a state increases, the total number of miscarriages also increases. As a note, an abortion is not considered a miscarriage. Democrat states seem to have more health facilities for women (offering abortions) than Republican ones.")
 st.divider()
-#####################
-st.divider()
-col10, col11 = st.columns([0.5,0.5])
-with col10:
+
+col7, col8 = st.columns([0.5,0.5])
+with col7:
     start_dash_apps()
     st.markdown(""" <iframe src="http://127.0.0.1:8099" width="650" height="600"></iframe>
 """, unsafe_allow_html=True)
@@ -737,20 +734,21 @@ with col10:
     st.write("The above graph, displaying the number of abortions per 1,000 births for women aged 15-17, shows that this abortion:birth ratio was generally decreasing in the United States until 2015. From 2015 to 2020 we see women in this age category having an increase in abortions in comparison to births. In states where abortion is restricted and in Republican states, women in this age category have more births than abortions. Among Democrat as well as states where abortion is protected, there are some states (NY, NJ, CT) where there are more abortions than births among this age range.")
     st.divider()
 
-with col11:
+with col8:
     st.markdown(""" <iframe src="http://127.0.0.1:8092" width="650" height="600"></iframe>
 """, unsafe_allow_html=True)
     st.divider()
-    st.write("The graph above, demonstrating the number of pregnancies per 1000 women aged 15-17 has been generally decreasing since 2005. This decrease is seen amoung Republican, Democrat, restricted, and legalized abortion states. Even from 2005 to 2015 when the number of abortions compared to birth was decreasing, we saw a decrease in pregnant 15-17 year olds. This sigifies even though there were less abortions per this rate, there were also less pregnancies. As such, this decrease in abortion ratio seen overall in the US may not be due less pregnant girls getting abortions, but less girls getting pregnant.")
+    st.write("The graph above, demonstrating the number of pregnancies per 1000 women aged 15-17 has been generally decreasing since 2005. This decrease is seen among Republican, Democrat, restricted, and legalized abortion states. Even from 2005 to 2015 when the number of abortions compared to births was decreasing, we saw a decrease in pregnant 15-17 year olds. This signifies even though there were less abortions per this rate, there were also less pregnancies. As such, this decrease in abortion:birth ratio seen overall in the US may not entirely be due to less pregnant teens getting abortions, but also less teens getting pregnant.")
     st.divider()
 
-######################
-_, col7 = st.columns([0.1,1])
+
+_, col9 = st.columns([0.1,1])
 
 
-with col7:
-    st.subheader("Cost of Abortion By State")
+with col9:
+    st.subheader("Cost of Medication Abortion Services By State")
     
+
     fig_cost = px.choropleth(
     AbortionCostOverTime,
     locations="State",  
@@ -759,7 +757,7 @@ with col7:
     animation_frame="year",  
     color_continuous_scale="Blues",
     scope="usa",
-    title="Abortion Cost Over Timess",
+    title="Abortion Cost Over Time",
     range_color=[150,850]  
 )
    
@@ -784,11 +782,11 @@ with dwn4:
     st.download_button("Get Data", data = AbortionCostOverTime.to_csv().encode("utf-8"),
                                         file_name="AbortionCostPerState.csv", mime="text.csv")
 st.divider()
-st.write("Between 2020 and 2023, before and after the fall of Roe v Wade, we see some changes in abortion cost by state. In swing states such as NC and PA, abortion gets more expensive after the fall. In Montanna and Wyomming, were abortion bans are blocked, we see abortion get cheaper after the fall of Roe v Wade.")
+st.write("Between 2020 and 2023, before and after the fall of Roe v. Wade, we see some changes in medication abortion service cost by state. In swing states such as NC and PA, abortion gets more expensive after the fall. In Montanna and Wyomming, where abortion bans are blocked, we see abortion by medication get cheaper after the fall of Roe v. Wade.")
 st.divider()
-_, col8 = st.columns([0.1,1])
-with col8:
-    st.subheader("Women Per Clinic By State")
+_, col10 = st.columns([0.1,1])
+with col10:
+    st.subheader("Women Per Abortion Facility By State")
     women_per_fac = px.choropleth(
     WomenPerClinic,
     locations="State",  
@@ -797,7 +795,7 @@ with col8:
     animation_frame="year",  
     color_continuous_scale="Cividis",
     scope="usa",
-    title="Women's Health Centers Over Time (Log Scale)",
+    title="Abortion Facilities Over Time (Log Scale)",
     range_color=[WomenPerClinic["log_number_of_women_per_facility"].min(), WomenPerClinic["log_number_of_women_per_facility"].max()] ,
     hover_data = ["State", "year", "log_number_of_women_per_facility", "number_of_women_per_facility"] 
 )
@@ -811,7 +809,7 @@ with col8:
                   "log(Number of Women Per Facility): %{z}<br>" 
                   "Year: %{frame}<br>"  
 )
-    women_per_fac.update_layout(coloraxis_colorbar_title="Number of Women per Health Center (log)")
+    women_per_fac.update_layout(coloraxis_colorbar_title="Number of Women per Abortion Facility (log)")
     women_per_fac.update_layout(
     height=600,  
     margin={"r": 0, "t": 50, "l": 0, "b": 50},  
@@ -828,25 +826,31 @@ with col8:
 )
 _, view5, dwn5 = st.columns([0.5,0.45,0.45])
 with view5:
-    expander = st.expander("View data for Women Served Per Facility over Time")
+    expander = st.expander("View data for Women Served Per Abortion Facility over Time")
     expander.write(WomenPerClinic)
 with dwn5:
     st.download_button("Get Data", data = WomenPerClinic.to_csv().encode("utf-8"),
                                         file_name="WomenPerFacilityByState.csv", mime="text.csv")
 st.divider()   
-st.write("After the fall of Roe v Wade, we see that number of women per facility increases in many Republican states, most notably Texas. This means that it is more difficult for women to get care, as when a health facility serves more women, it is serving over a larger radius. This means that patients may have to travel further to appointments and must schedule appointments further in advance. Leading up to the fall of Roe v Wade, AL was showing  improvement in access, as the number of women per facility dropped from 2020-2021, just for the number of women per facility to increase ~5x in 2023. In Idaho, the number of women served per facility had been holding steady until ~2x increase after Roe fell.")
+st.write("Of note, the visualization above shows log values of women per abortion facility. This is because in 2023, Texas is a strong outlier with over 7 million women per abortion facility. As such, a log scale was necessary to demonstate changes among other states through a color scale.")
+st.write("After the fall of Roe v. Wade, we see that number of women per facility increases in many Republican states, most notably Texas. This means that it is more difficult for women to get care. More women per abortion facility often signifies less facilities. As such, patients may have to travel further to appointments and must schedule appointments further in advance. Leading up to the fall of Roe v. Wade, AL was showing improvement in access, as the number of women per facility dropped from 2020-2021. Once abortion was no longer protected nationally, the number of women per facility in AL increased ~5x in 2023. In Idaho, the number of women served per facility had been holding steady until a ~2x increase after Roe fell.")
 st.divider()
 
 st.header("Project Discussion")
 st.subheader("Methodology:")
-st.write("For this dashboard, I combined data from the CDC, the  Guttmacher Institute, and Advancing New Standards in Reproductive Health in order to explore features related to abortion, miscarriage, and pregnancy rates, abortions by gestational age, abortion cost, and women's health care facilities by state. I also utilized data from the New York Times on the legality of abortion in each state. For all plots except 'Comparing Total Abortions, Miscarriages, and Women's Healthcare Facilities by State', all data was from the same source. In the case of this regression, I merged datasets using pandas. In terms of the raw data, I was able to download a csv file from the Guttmacher Institute. For the other data sources, I pulled the data from published data tables. Since much of my data was state dependent, I decided to include several chloropleths to display the difference by state. In cases where I wanted to display too many features for a chloropleth, I utilized Dash and dropdowns so that states and groups of states could be selected.")
+st.write("For this dashboard, I combined data from the CDC, the Guttmacher Institute, and Advancing New Standards in Reproductive Health in order to explore features related to abortion, miscarriage, pregnancy rates, abortions by gestational age, abortion cost, and women's health care facilities by state. I also utilized data from the New York Times on the legality of abortion in each state. For all plots except the 'Comparing Total Abortions, Miscarriages, and Women's Healthcare Facilities by State' regression, all data within the plot was from the same source. In the case of the regression, I merged datasets using pandas.")
+st.write("Since much of my data was state dependent, I decided to include several chloropleths to display differences by state. As much of my data was over years, I utilized animation over the chloropleths to demonstrate change over time while still allowing easy visual comparisons between the states.  In cases where I wanted to display too many features for a choropleth, I utilized Dash and dropdowns so that states and groups of states could be selected. I thought the dropdowns were helpful to compare states within groups (Republican, Democrat, abortions fully allowed, abortion restricted). My final visualization type is based on the Gapminder visualization we discussed in class. I thought this was a neat method to visualize several features at once without becoming overwhelming or confusing for the viewer. For this visualization, I also included animation to demonstrate changes over time. ")
+st.write("For all but my legality visualization, I included a brief analysis of the data presented to help piece together a story from the data. Since there has been changes to abortion legality in recent years based on geographical location within the United States, I wanted to focus on data by state and year in my visualizations. ")
 st.divider()
 st.subheader("Critical Analysis:")
-st.write("Limitations of this current approach include data availability. Since I utilized data from multiple sources, the data years do not always align. The CDC data is only from 2022, the Guttmacher Institute spans decades but only goes until 2020, and the  Advancing New Standards in Reproductive Health is the most up to date, but only spans a few years and includes a relatively large number of missing values. This makes it difficult to compare across visualizations and may lead to some confusion for viewers. Another shortcoming is in the 'Comparing Total Abortions, Miscarriages, and Women's Healthcare Facilities by State' as I am still exploring how to include a second legend just for the size of the point. The addition of this legend is a good first step for future direction. Another future direction would be to request more specefic and up to date data from Advancing New Standards in Reproductive Health as a student/researcher.")
+st.write("Limitations of this current approach include data availability. Since I utilized data from multiple sources, the data years do not always align. The CDC data is only from 2022, the Guttmacher Institute spans decades but only goes until 2020, and while the Advancing New Standards in Reproductive Health is the most up to date, it only spans a few years and includes a relatively large number of missing values. This makes it difficult to compare across visualizations and may lead to some confusion for viewers. A future direction to improve my data would be to apply for more specific and up to date data from Advancing New Standards in Reproductive Health as a student/researcher.")
+st.write(" In addition to this shortcoming in the data, my project also has a few issues in the visualizations. One such shortcoming is in the 'Comparing Total Abortions, Miscarriages, and Women's Healthcare Facilities by State' visualization as I am still exploring how to include a second legend just for the size of the point. In the final two visualizations on the site, I struggled to differentiate states with missing data from states with low abortion cost. Currently, the viewer could infer that when hover information is missing, there is no data, but that is not clear. An improved visualization would have states with missing data hashed or grayed out. For the line graphs, only one of my created groups (such as Republican or Democrat states) can show at a time. For the graph to display correctly, one group must first be exed out if two are selected at once. A future direction for this project would be to make this selection process more seamless. ")
+st.write("In terms of improving presentation, my visualizations in Dash do not display via the Streamlit url when the site is not run locally. To aid this issue, the Dash visualization could be deployed through a separate platform such as Heroku or AWS and then displayed through Streamlit. However, credit card information was required for account verification, so I am choosing to only display these visualizations locally at this stage. Finally, I think I could work on consistency throughout the site. As of now, there are varying color schemes and several fonts. Cleaning up these smaller features would make the site appear more polished. ")
 st.divider()
 st.subheader("Works Cited:")
 st.write("Chiu DW, Maddow-Zimet I and Kost K, Pregnancies, Births and Abortions in the United States, 1973–2020: National and State Trends by Age, New York: Guttmacher Institute, 2024. https://osf.io/duj6a")
 st.write("New York Times. (2024). Abortion laws in the United States: A state-by-state guide after Roe v. Wade. The New York Times. https://www.nytimes.com/interactive/2024/us/abortion-laws-roe-v-wade.html")
 st.write("Schroeder R, Kaller S, Berglas NF, Stewart C, Upadhyay UD. Trends in abortion services in the United States, 2017-2023. Advancing New Standards in Reproductive Health (ANSIRH), University of California, San Francisco, 2024. https://www.ansirh.org/sites/default/files/2024-08/AFD%20Trends%20in%20Abortion%20Services%20in%20the%20United%20States%202017-2023_Final%20UPDATED.pdf")
 st.write("Ramer S, Nguyen AT, Hollier LM, Rodenhizer J, Warner L, Whiteman MK. Abortion Surveillance — United States, 2022. MMWR Surveill Summ 2024;73(No. SS-7):1–28. https://www.cdc.gov/mmwr/volumes/73/ss/ss7307a1.htm?s_cid=ss7307a1_w")
+st.write("The data from the above sources was prepared for analysis in the Data_Cleaning notebook available in the project Git repository. In terms of the raw data, I was able to download a csv file from the Guttmacher Institute. For the other data sources, I pulled the data from published data tables. This involved filtering for relevant years, ensuring values were of the appropriate data type, removing symbols from the data, and melting data frames.")
 st.divider()
