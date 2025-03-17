@@ -21,9 +21,11 @@ WomenPerClinic = pd.read_csv('Data/Cleaned_Datasets/WomenPerClinicOverTime.csv')
 legality = pd.read_csv('Data/Cleaned_Datasets/legality.csv')
 preg_abort_rates = pd.read_csv('Data/Cleaned_Datasets/Pregnancy_Abortion_Rate_Age_State.csv')
 
-
+#Template from class notes
 
 #######  Dash Functions  ###########
+
+#Utilized Chat GPT for buttons and imbedding Dash in Streamlit
 
 state_political_affiliation = {
     'AL': 'Republican',
@@ -571,7 +573,7 @@ st.divider()
 st.write("Looking at the left chart, breaking down the total number of abortions performed in 2022 by gestational age by state, we see that on average, about 35 percent of abortions in Democrat states are performed at 6 or less weeks. In Republican states, about 33 percent of abortions in Democrat states are performed at 6 or less weeks. The majority of abortions are preformed at 7 to 9 weeks across both groups of states. In the total abortions graph on the right, we see the change in the number of abortions in the US as well as by state from 2005-2020. Overall, there has been a decrease in abortions since 2005, with a bit of an uptick since 2017.")
 st.divider()
 
-#Gapminder inspired visualization of total miscarriages vs abortions
+#Gapminder inspired visualization of total miscarriages vs abortions, https://plotly.com/python/v3/gapminder-example/
 _, col6 = st.columns([0.1,1])
 with col6:
     st.subheader("Comparing Total Abortions, Miscarriages, and Women's Healthcare Facilities by State")
